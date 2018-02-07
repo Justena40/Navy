@@ -22,9 +22,9 @@ int	nbr_in_map(char c)
 
 int	great_length(char c1, char c2, char nbr)
 {
-	if (c1 - c2 + 48 == '0')
+	if (c2 - c1 + 48 == '0')
 		return (CONTINUE);
-	else if (c1 - c2 + 48 == nbr)
+	else if (c2 - c1 + 48 == nbr - 1)
 		return (SUCCESS);
 	return (ERROR);
 }

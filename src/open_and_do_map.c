@@ -23,7 +23,7 @@ static int	look_one_ship(char *pos_ship)
 		return (ERROR);
 	res1 = great_length(pos_ship[2], pos_ship[5], pos_ship[0]);
 	res2 = great_length(pos_ship[3], pos_ship[6], pos_ship[0]);
-	if ((res1 == ERROR && res2 == ERROR) ||
+	if (res1 == ERROR || res2 == ERROR ||
 	(res1 == CONTINUE && res2 == CONTINUE) ||
 	(res1 == SUCCESS && res2 == SUCCESS))
 		return (ERROR);
