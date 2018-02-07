@@ -59,10 +59,10 @@ char	**open_file_and_do_map(char *str)
 	while (count < NBR_SHIPS) {
 		pos_ship[count] = get_next_line(fd);
 		if (pos_ship[count] == NULL ||
+		pos_ship[count][0] != count + '0' + 2 ||
 		check_pos_ships(pos_ship[count], map) == ERROR)
 			return (MALLOC_ERROR);
 		count++;
 	}
-	display_map(map);
 	return (map);
 }
