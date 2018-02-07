@@ -24,14 +24,10 @@ static void	swap_case(char *pos_ship)
 static int	draw_ship_height(char **map, char *pos)
 {
 	int	count_pos = -1;
-	int	count_map = 0;
 
-	printf("pos %s\n", pos);
 	while (pos[3] + count_pos < pos[6]) {
 		map[(pos[3] - '0') + count_pos][pos[2] - 'A'] = pos[0];
-		count_map += 2;
 		count_pos++;
-		printf("pos 2 - A  =  %d\n", pos[2] - 'A');
 	}
 	return (SUCCESS);
 }

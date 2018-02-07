@@ -12,7 +12,7 @@
 #define CONTINUE		1
 #define	ERROR			84
 #define MALLOC_ERROR		NULL
-#define MAP_HEIGHT		18
+#define MAP_HEIGHT		8
 #define MAP_WIDTH		8
 #define NBR_SHIPS		4
 
