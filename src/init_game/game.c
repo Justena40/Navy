@@ -6,8 +6,10 @@
 */
 
 #include <stdlib.h>
+#include <unistd.h>
 #include "tools_navy.h"
 #include "init_game.h"
+#include "my.h"
 
 static int	player2_game(char *str)
 {
@@ -33,24 +35,28 @@ static int	player1_game(char *str)
 	return (SUCCESS);
 }
 
+void	check_pid(int pid)
+{
+	write(1, "my_pid ", 8);
+	my_putnbr(pid);
+}
+
 int	game(char **argv)
 {
 	int	res = 0;
+	int pid = getpid();
 
 	if (argv[2] != NULL) {
-		/*ecrit le pid de l'hote en av[1]
-		**get pid et print
-		**envoie signal pour démarrer le jeu
-		**print succès
-		*/res = player2_game(argv[2]);
+		check_pid(pid);
+		connect_other();
+		res = player2_game(argv[2]);
 		if (res == ERROR)
 			return (ERROR);
 	}
 	else if (argv[1] != NULL) {
-		/*get pid hote et print
-		**pause pour attendre la connection de j2
-		**quand j2 connecé (on recoit le signal et on prend son pid)
-		*/res = player1_game(argv[1]);
+		check_pid(pid);
+		connect_host();
+		res = player1_game(argv[1]);
 		if (res == ERROR)
 			return (ERROR);
 	}
