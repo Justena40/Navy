@@ -1,22 +1,18 @@
 /*
 ** EPITECH PROJECT, 2018
-** get_next_line.h
+** get_next_line
 ** File description:
-** get next line
+** h
 */
 
-#ifndef	GET_NEXT_LINE_H_
-#define	GET_NEXT_LINE_H_
+#ifndef GET_NEXT_LINE_H
+#define GET_NEXT_LINE_H
 
-#ifndef	READ_SIZE
-#define	READ_SIZE	(100000)
-#endif		/*READ_SIZE*/
+#ifndef READ_SIZE
+#define READ_SIZE (1)
 
-#define	MALLOC_ERROR	NULL
-#define	FAIL		-1
-#define	CONTINUE	1
-#define	SUCCESS		0
+#endif /* !READ_SIZE */
 
 char	*get_next_line(int fd);
 
-#endif		/*GET_NEXT_LINE_H_*/
+#endif /* GET_NEXT_LINE */
