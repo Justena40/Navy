@@ -15,7 +15,7 @@ int	letter_in_map(char c)
 
 int	nbr_in_map(char c)
 {
-	return (c > '1' && c < '9');
+	return (c > '0' && c < '9');
 }
 
 // c1 premier charac à comparer avec le 2eme charac voir si ils sont egaux au length
