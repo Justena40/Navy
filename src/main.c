@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 {
 	int	res = 0;
 
-	if (argc == 1)
+	if (argc == 1 ||  argc >= 4)
 		return (ERROR);
 	else if (my_strcmp(argv[1], "-h") == 0) {
 		display_usage();

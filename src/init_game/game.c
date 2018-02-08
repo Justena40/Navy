@@ -38,12 +38,19 @@ int	game(char **argv)
 	int	res = 0;
 
 	if (argv[2] != NULL) {
-		res = player2_game(argv[2]);
+		/*ecrit le pid de l'hote en av[1]
+		**get pid et print
+		**envoie signal pour démarrer le jeu
+		**print succès
+		*/res = player2_game(argv[2]);
 		if (res == ERROR)
 			return (ERROR);
 	}
 	else if (argv[1] != NULL) {
-		res = player1_game(argv[1]);
+		/*get pid hote et print
+		**pause pour attendre la connection de j2
+		**quand j2 connecé (on recoit le signal et on prend son pid)
+		*/res = player1_game(argv[1]);
 		if (res == ERROR)
 			return (ERROR);
 	}

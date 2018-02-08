@@ -19,7 +19,8 @@ static int	draw_ship_height(char **map, char *pos)
 {
 	int	count_pos = -1;
 
-	while (pos[3] + count_pos < pos[6]) {
+	while (pos[3] + count_pos < pos[6] &&
+	map[(pos[3] - '0') + count_pos][pos[2] - 'A'] == '.') {
 		map[(pos[3] - '0') + count_pos][pos[2] - 'A'] = pos[0];
 		count_pos++;
 	}
@@ -30,7 +31,8 @@ static int	draw_ship_hor(char **map, char *pos)
 {
 	int	count = 0;
 
-	while (pos[2] + count <= pos[5]) {
+	while (pos[2] + count <= pos[5] &&
+	map[pos[3] - '0' - 1][(pos[2] - 'A') + count] == '.') {
 		map[pos[3] - '0' - 1][(pos[2] - 'A') + count] = pos[0];
 		count++;
 	}
