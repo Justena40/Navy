@@ -16,4 +16,7 @@
 #define MAP_WIDTH		8
 #define NBR_SHIPS		4
 
+void	set_italic_text();
+void	unset_italic_text();
+
 #endif /*TOOLS_NAVY_H_*/
