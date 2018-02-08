@@ -16,6 +16,7 @@ static int	player2_game(char *str)
 	map = open_file_and_do_map(str);
 	if (map == NULL)
 		return (ERROR);
+	display_map(map);
 //	begin_game_player2(map);
 	return (SUCCESS);
 }
@@ -27,6 +28,7 @@ static int	player1_game(char *str)
 	map = open_file_and_do_map(str);
 	if (map == NULL)
 		return (ERROR);
+	display_map(map);
 //	begin_game_player1(map);
 	return (SUCCESS);
 }
