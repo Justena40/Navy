@@ -18,7 +18,8 @@ int	nbr_in_map(char c)
 	return (c > '0' && c < '9');
 }
 
-// c1 premier charac à comparer avec le 2eme charac voir si ils sont egaux au length
+// c1 premier charac à comparer avec le 2eme
+//charac voir si ils sont egaux au length
 
 int	great_length(char c1, char c2, char nbr)
 {
