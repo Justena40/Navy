@@ -9,29 +9,28 @@
 #include <unistd.h>
 #include "tools_navy.h"
 #include "init_game.h"
+#include "play_game.h"
 #include "my.h"
 
 static int	player2_game(char *str)
 {
-	char	**map = NULL;
+	char	**my_map = NULL;
 
-	map = open_file_and_do_map(str);
-	if (map == NULL)
+	my_map = open_file_and_do_map(str);
+	if (my_map == NULL)
 		return (ERROR);
-	display_map(map);
-//	begin_game_player2(map);
+//	begin_game_player2(my_map);
 	return (SUCCESS);
 }
 
 static int	player1_game(char *str)
 {
-	char	**map = NULL;
+	char	**my_map = NULL;
 
-	map = open_file_and_do_map(str);
-	if (map == NULL)
+	my_map = open_file_and_do_map(str);
+	if (my_map == NULL)
 		return (ERROR);
-	display_map(map);
-//	begin_game_player1(map);
+	begin_game_player1(my_map);
 	return (SUCCESS);
 }
 
