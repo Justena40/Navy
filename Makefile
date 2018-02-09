@@ -21,6 +21,7 @@ SRC	=	$(SRC_DIR)main.c		\
 		$(INIT_DIR)put_ship_in_map.c	\
 		$(INIT_DIR)open_and_do_map.c	\
 		$(MY_DIR)my_strcmp.c		\
+		$(MY_DIR)my_getnbr.c		\
 		$(MY_DIR)my_put_nbrdec.c	\
 		$(MY_DIR)my_strlen.c		\
 		$(MY_DIR)my_putstr.c

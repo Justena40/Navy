@@ -13,9 +13,9 @@ void	my_putchar(char c)
 	write(1, &c, 1);
 }
 
-int	my_putnbr(int nb)
+int	my_put_nbrdec(int nb)
 {
-	int c;
+	int c = 0;
 	int t = 1;
 	int cop = nb;
 
