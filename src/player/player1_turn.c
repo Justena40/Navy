@@ -34,13 +34,14 @@ void	begin_game_player1(char **my_map)
 			my_putstr(1, "wrong position\n");
 			ret = target_pos();
 		}
-		//envoi le signal criptee vers j2
-		//pause() en att que l autre rep
-		//j2 envoi un signal pour hit ou missed
-		//complete la map ennemi
-		//ecrire message de waiting
-		//pause() jou joue;
+		//envoi le signal criptee vers j2 -> encryp();
+		pause(); // pause en att que l autre rep
+		//j2 envoi un signal pour hit ou missed -> decrypt();
+		//if pour miss ou hit
+		//complete la map ennemi -> function
+		my_putstr(1, "waiting for enemy's attack...\n");
+		pause();  //pause j2 joue;
 		//recevoir signal de son jeu (gnl j2)
-		//decrypte et dire sig
+		//decrypte et dire si hit ou miss
 	}
 }

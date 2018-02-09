@@ -11,7 +11,7 @@ INIT_DIR =	$(SRC_DIR)init_game/
 
 MY_DIR	=	$(SRC_DIR)my/
 
-PLA1_DIR =	$(SRC_DIR)player1/
+PLA_DIR =	$(SRC_DIR)player/
 
 SRC	=	$(SRC_DIR)main.c		\
 		$(SRC_DIR)get_next_line.c	\
@@ -22,8 +22,9 @@ SRC	=	$(SRC_DIR)main.c		\
 		$(INIT_DIR)game.c		\
 		$(INIT_DIR)put_ship_in_map.c	\
 		$(INIT_DIR)open_and_do_map.c	\
-		$(PLA1_DIR)player1_turn.c	\
-		$(PLA1_DIR)check_player.c	\
+		$(PLA_DIR)player1_turn.c	\
+		$(PLA_DIR)check_player.c	\
+		$(PLA_DIR)player2_turn.c	\
 		$(MY_DIR)my_strcmp.c		\
 		$(MY_DIR)my_getnbr.c		\
 		$(MY_DIR)my_put_nbrdec.c	\
@@ -34,7 +35,7 @@ OBJ	=	$(SRC:.c=.o)
 
 NAME	=	navy
 
-CFLAGS	=	-I ./include -Wall -Wextra -g
+CFLAGS	=	-I ./include -g
 
 all:		$(NAME)
 
