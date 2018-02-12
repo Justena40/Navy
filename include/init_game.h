@@ -8,8 +8,8 @@
 #ifndef	INIT_GAME_H_
 #define INIT_GAME_H_
 
-void	connect_other(int pid, int *state, char *str);
-void	connect_host(int pid, int *state);
+void	connect_other(char *str);
+int	connect_host(int pid);
 int	game(char **argv);
 char	**open_file_and_do_map(char *str);
 int	letter_in_map(char c);

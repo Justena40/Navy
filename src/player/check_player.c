@@ -25,15 +25,19 @@ char	*check_target(void)
 	return (stock);
 }
 
-int	target_pos(void)
+char	*target_pos(int pid_enn)
 {
 	char *gnl = NULL;
 
 	my_putstr(1, "attack: ");
 	gnl = check_target();
 	if (gnl == MALLOC_ERROR)
-		return (ERROR);
-	else if (letter_in_map(gnl[0]) == 0 || nbr_in_map(gnl[1]) == 0)
-		return (ERROR);
-	return (SUCCESS);
+		return (NULL);
+	while (letter_in_map(gnl[0]) == 0 || nbr_in_map(gnl[1]) == 0) {
+		my_putstr(1, "wrong position\n");
+		my_putstr(1, "attack: ");
+		gnl = check_target();
+	}
+	encrypt(pid_enn, gnl);
+	return (gnl);
 }

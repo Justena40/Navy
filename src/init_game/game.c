@@ -12,51 +12,51 @@
 #include "play_game.h"
 #include "my.h"
 
-static int	player2_game(char *str)
+static int	player2_game(char *pid_enn, char *str)
 {
 	char	**my_map = NULL;
 
 	my_map = open_file_and_do_map(str);
 	if (my_map == NULL)
 		return (ERROR);
-//	begin_game_player2(my_map);
+	begin_game_player2(my_map, my_getnbr(pid_enn));
 	return (SUCCESS);
 }
 
-static int	player1_game(char *str)
+static int	player1_game(char *str, int pid_enn)
 {
 	char	**my_map = NULL;
 
 	my_map = open_file_and_do_map(str);
 	if (my_map == NULL)
 		return (ERROR);
-	begin_game_player1(my_map);
+	begin_game_player1(my_map, pid_enn);
 	return (SUCCESS);
 }
 
 static void	check_pid(int pid)
 {
-	write(1, "my_pid ", 8);
+	write(1, "my pid: ", 9);
 	my_put_nbrdec(pid);
 }
 
 int	game(char **argv)
 {
-	int	state = 0;
 	int	res = 0;
 	int pid = getpid();
+	int	pid_enn = 0;
 
 	if (argv[2] != NULL) {
 		check_pid(pid);
-		connect_other(pid, &state, argv[1]);
-		res = player2_game(argv[2]);
+		connect_other(argv[1]);
+		res = player2_game(argv[1], argv[2]);
 		if (res == ERROR)
 			return (ERROR);
 	}
 	else if (argv[1] != NULL) {
 		check_pid(pid);
-		connect_host(pid, &state);
-		res = player1_game(argv[1]);
+		pid_enn = connect_host(pid);
+		res = player1_game(argv[1], pid_enn);
 		if (res == ERROR)
 			return (ERROR);
 	}

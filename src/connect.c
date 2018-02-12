@@ -9,47 +9,39 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <signal.h>
+#include "tools_navy.h"
 #include "my.h"
 
-static void	my_handler(int signal, siginfo_t *sig, void *context)
+int	rec_sig = -1;
+
+static void	my_handler(int signal, siginfo_t *siginfo,
+			void *context)
 {
-	if (signal == 10)
-		printf("salut\n");
+	if (signal == 10) {
+		rec_sig = siginfo->si_pid;
+	}
 	else if (signal == 12)
-		printf("coucou\n");
+		rec_sig = siginfo->si_pid;
 }
 
-void	connect_other(int pid, int *state, char *str)
+void	connect_other(char *str)
 {
-	//envoi signal pour demarrer le jeu et rendre rep pour j1
-	//print success
-	struct sigaction	sig;
-
-	sigemptyset(&sig.sa_mask);
-	sig.sa_sigaction = &my_handler;
-	sig.sa_flags = SA_SIGINFO;
-	if (sigaction(SIGUSR1, &sig, NULL) == 0 ||
-	sigaction(SIGUSR2, &sig, NULL) == 0) {
-		kill(my_getnbr(str), SIGUSR1);
-		my_putstr(1, "successfully connected\n");
-	}
-	pause();
+	kill(my_getnbr(str), SIGUSR1);
+	my_putstr(1, "\nsuccessfully connected\n");
 }
 
-void	connect_host(int pid, int *state)
+
+int	connect_host(int pid)
 {
 	struct sigaction	sig;
 
-	//pause  pour attendre la connection de j2
-	//qd j2 connecté (on recoit le signal et on prend son pid)
 	my_putstr(1, "\nwaiting for enemy connection...");
-	pause();
 	sigemptyset(&sig.sa_mask);
-	sig.sa_sigaction = &my_handler;
 	sig.sa_flags = SA_SIGINFO;
-	if (sigaction(SIGUSR1, &sig, NULL) == 0 ||
-	sigaction(SIGUSR2, &sig, NULL) == 0) {
-		my_putstr(1, "\nennemy connected\n");
-		*state = 1;
-	}
+	sig.sa_sigaction = &my_handler;
+	sigaction(SIGUSR1, &sig, NULL);
+	sigaction(SIGUSR2, &sig, NULL);
+	pause();
+	my_putstr(1, "\nennemy connected\n");
+	return (rec_sig);
 }
