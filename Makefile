@@ -24,7 +24,9 @@ SRC	=	$(SRC_DIR)main.c		\
 		$(INIT_DIR)open_and_do_map.c	\
 		$(PLA_DIR)player1_turn.c	\
 		$(PLA_DIR)check_player.c	\
+		$(PLA_DIR)encryption.c		\
 		$(PLA_DIR)player2_turn.c	\
+		$(PLA_DIR)check_in_map.c	\
 		$(MY_DIR)my_strcmp.c		\
 		$(MY_DIR)my_getnbr.c		\
 		$(MY_DIR)my_put_nbrdec.c	\
