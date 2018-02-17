@@ -6,14 +6,13 @@
 */
 
 #include <unistd.h>
-#include "my.h"
 
-void	my_putchar(char c)
+static void	my_putchar(char c)
 {
 	write(1, &c, 1);
 }
 
-int	my_put_nbrdec(int nb)
+int	my_putnbr(int nb)
 {
 	int c = 0;
 	int t = 1;

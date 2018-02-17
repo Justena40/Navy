@@ -10,8 +10,8 @@
 
 void	my_putstr(int out, char const *str);
 int	my_getnbr(char const *str);
-int	my_put_nbrdec(int nb);
+int	my_putnbr(int nb);
 int	my_strcmp(char const *str1, char const *str2);
 int	my_strlen(char const *str);
 
-#endif		/*MY_H_*/
+#endif /*MY_H_*/

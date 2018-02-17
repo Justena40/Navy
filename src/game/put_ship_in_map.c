@@ -8,7 +8,7 @@
 #include <unistd.h>
 #include "my.h"
 #include "tools_navy.h"
-#include "init_game.h"
+#include "game.h"
 
 static int	swap_case(char *pos_ship)
 {

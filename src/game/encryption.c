@@ -5,9 +5,9 @@
 ** encryption and decod of signal
 */
 
-#include <signal.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include "signal_handler.h"
 #include "tools_navy.h"
 #include "encrypt.h"
 #include "my.h"
@@ -32,18 +32,16 @@ void	init_struc(encrypt_t arr_crypt[16])
 	arr_crypt[15] = (encrypt_t) {'H', "111"};
 }
 
-void	send_signal(char *sig, int count, int pid_enn)
+void	init_pos(char *x, char *y, char *buffer)
 {
-	int		send_sig = 0;
-
-	while (sig[send_sig] != '\0') {
-		if (sig[send_sig] == '0')
-			kill(pid_enn, SIGUSR1);
-		else
-			kill(pid_enn, SIGUSR2);
-		pause();
-		send_sig++;
-	}
+	y[0] = buffer[0];
+	y[1] = buffer[1];
+	y[2] = buffer[2];
+	y[3] = '\0';
+	x[0] = buffer[3];
+	x[1] = buffer[4];
+	x[2] = buffer[5];
+	x[3] = '\0';
 }
 
 void	encrypt(int pid_enn, char *pos_shoot)
@@ -55,31 +53,11 @@ void	encrypt(int pid_enn, char *pos_shoot)
 	while (pos_shoot[0] != arr_crypt[count].charac) {
 		count++;
 	}
-	send_signal(arr_crypt[count].sig, count, pid_enn);
+	send_signal(arr_crypt[count].sig, pid_enn);
 	count = 0;
 	while (pos_shoot[1] != arr_crypt[count].charac)
 		count++;
-	send_signal(arr_crypt[count].sig, count, pid_enn);
-}
-
-static void	my_handler(int signal, siginfo_t *siginfo,
-			void *context)
-{
-	if (signal == 10)
-		rec_sig = 0;
-	else if (signal == 12)
-		rec_sig = 1;
-}
-
-void	init_sig()
-{
-	struct sigaction	sig;
-
-	sigemptyset(&sig.sa_mask);
-	sig.sa_sigaction = &my_handler;
-	sig.sa_flags = SA_SIGINFO;
-	sigaction(SIGUSR1, &sig, NULL);
-	sigaction(SIGUSR2, &sig, NULL);
+	send_signal(arr_crypt[count].sig, pid_enn);
 }
 
 char	*decrypt(char *buffer)
@@ -94,28 +72,19 @@ char	*decrypt(char *buffer)
 	if (pos == NULL)
 		return (NULL);
 	init_struc(arr_crypt);
-	x[0] = buffer[0];
-	x[1] = buffer[1];
-	x[2] = buffer[2];
-	x[3] = '\0';
-	y[0] = buffer[3];
-	y[1] = buffer[4];
-	y[2] = buffer[5];
-	y[3] = '\0';
-	while (my_strcmp(x, arr_crypt[count].sig) != 0) {
+	init_pos(x, y, buffer);
+	while (my_strcmp(x, arr_crypt[count].sig) != 0)
 		count++;
-	}
 	pos[0] = arr_crypt[count].charac - 1;
 	count = 0;
 	while (my_strcmp(y, arr_crypt[count].sig) != 0)
 		count++;
 	pos[1] = arr_crypt[count].charac - 1;
 	pos[2] = '\0';
-	printf("pos: %s\n", pos);
 	return (pos);
 }
 
-char	*catch_signal(int pid_enn)
+char	*catch_signal(void)
 {
 	char	buffer[6];
 	char	*ret = NULL;
@@ -123,12 +92,10 @@ char	*catch_signal(int pid_enn)
 
 	while (count < 5) {
 		buffer[count] = rec_sig + '0';
-		kill(pid_enn, SIGUSR2);
-		count++;
 		pause();
+		count++;
 	}
 	buffer[count] = rec_sig + '0';
-	kill(pid_enn, SIGUSR2);
 	ret = decrypt(buffer);
 	return (ret);
 }

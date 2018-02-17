@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include "tools_navy.h"
+#include "game.h"
 
 int	letter_in_map(char c)
 {

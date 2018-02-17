@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 #include <fcntl.h>
-#include "init_game.h"
+#include "game.h"
 #include "tools_navy.h"
 #include "my.h"
 #include "get_next_line.h"

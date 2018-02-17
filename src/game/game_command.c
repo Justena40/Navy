@@ -1,0 +1,58 @@
+/*
+** EPITECH PROJECT, 2018
+** navy
+** File description:
+** player commands
+*/
+
+#include "my.h"
+#include "signal_handler.h"
+#include "tools_navy.h"
+#include "game.h"
+
+static char	*attack(player_t *player)
+{
+	char	*str = NULL;
+
+	my_putstr(1, "attack: ");
+	while ((str = get_input(0)) != NULL && (letter_in_map(str[0]) == 0 ||
+						nbr_in_map(str[1]) == 0 ||
+						my_strlen(str) > 2)) {
+		my_putstr(1, "wrong position\n");
+		my_putstr(1, "attack: ");
+	}
+	encrypt(player->enemy_pid, str);
+	return (str);
+}
+
+int	wait_turn(player_t *player)
+{
+	char	*pos = NULL;
+
+	pause();
+	pos = catch_signal();
+	if (pos == NULL)
+		return (ERROR);
+	kill(player->enemy_pid,
+	check_in_map(pos, player->map));
+	return (SUCCESS);
+}
+
+int	attack_turn(player_t *player)
+{
+	char	*pos = NULL;
+
+	display_map(player->map);
+	my_putstr(1, "\n");
+	display_map(player->enemy_map);
+	pos = attack(player);
+	if (pos == MALLOC_ERROR)
+		return (ERROR);
+	my_putstr(1, pos);
+	my_putstr(1, ": ");
+	if (rec_sig == 0)
+		my_putstr(1, "missed\n");
+	else
+		my_putstr(1, "hit\n");
+	return (SUCCESS);
+}

@@ -14,4 +14,4 @@ typedef struct encrypt
 	char	sig[4];
 }encrypt_t;
 
-#endif		/*ENCRYPT_H_*/
+#endif /*ENCRYPT_H_*/

@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include "my.h"
 #include "tools_navy.h"
-#include "init_game.h"
+#include "game.h"
 
 static void	init_first_line_map(void)
 {
@@ -26,24 +26,6 @@ static void	put_point_in_map(char *line)
 		count += 1;
 	}
 	line[count] = '\0';
-}
-
-char	**init_map(void)
-{
-	char	**map = malloc(sizeof(char *) * (MAP_WIDTH + 1));
-	int	count = 0;
-
-	if (map == NULL)
-		return (MALLOC_ERROR);
-	while (count < MAP_WIDTH) {
-		map[count] = malloc(sizeof(char) * (MAP_HEIGHT + 1));
-		if (map[count] == NULL)
-			return (MALLOC_ERROR);
-		put_point_in_map(map[count]);
-		count++;
-	}
-	map[count] = NULL;
-	return (map);
 }
 
 void	display_map(char **map)
@@ -66,4 +48,22 @@ void	display_map(char **map)
 		count++;
 		nbr = count + '1';
 	}
+}
+
+char	**init_map(void)
+{
+	char	**map = malloc(sizeof(char *) * (MAP_WIDTH + 1));
+	int	count = 0;
+
+	if (map == NULL)
+		return (MALLOC_ERROR);
+	while (count < MAP_WIDTH) {
+		map[count] = malloc(sizeof(char) * (MAP_HEIGHT + 1));
+		if (map[count] == NULL)
+			return (MALLOC_ERROR);
+		put_point_in_map(map[count]);
+		count++;
+	}
+	map[count] = NULL;
+	return (map);
 }

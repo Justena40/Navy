@@ -1,123 +1,101 @@
 /*
 ** EPITECH PROJECT, 2018
-** getnextline
+** get_next_line1.c
 ** File description:
-** main function
+** gnl
 */
 
-#include <unistd.h>
+#include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include "get_next_line.h"
-#include "my.h"
 
-int	my_str(char const *str)
+static int	my_strlen(char const *str, int pos)
 {
-	int index = 0;
+	int	count = pos;
 
-	if (str == NULL)
-		return (0);
-	while (str[index] != '\0')
-		index++;
-	return (index);
+	while (str != NULL && (str[count] != '\n' && str[count] != '\0'))
+		count++;
+	return (count);
 }
 
-char	*my_realloc(char *rec, char *stock)
+static char	*realloc_ret(char *buffer, char *ret, int *count_buf)
 {
-	char *tmp = malloc(sizeof(char) * ((my_str(rec) + my_str(stock)) + 2));
-	int index = 0;
-	int index2 = 0;
+	char	*tmp = malloc(sizeof(char) *
+			(my_strlen(buffer, *count_buf)
+			+ my_strlen(ret, 0) + 1));
+	int	count = 0;
 
-	if (tmp == NULL)
-		return (NULL);
-	tmp[0] = '\0';
-	while (rec[index] != '\0') {
-		tmp[index] = rec[index];
-		index += 1;
+	if (tmp == NULL) {
+		free(ret);
+		return (ERROR_NULL);
 	}
-	tmp[index] = '\0';
-	free(rec);
-	rec = NULL;
-	while (stock[index2] != '\0')
-		tmp[index++] = stock[index2++];
-	tmp[index] = '\0';
-	tmp[index + 1] = '\0';
-	stock = NULL;
+	if (ret != NULL) {
+		while (ret[count] != '\0') {
+			tmp[count] = ret[count];
+			count++;
+		}
+	}
+	while (buffer[*count_buf] != '\0' && buffer[*count_buf] != '\n')
+		tmp[count++] = buffer[(*count_buf)++];
+	tmp[count] = '\0';
+	free(ret);
 	return (tmp);
 }
 
-int	check_caract(int size, char *buffer, char **rec)
+static int	read_file(int fd, char *buffer,
+			int *count_buf, int *current_file)
 {
-	char *stock = NULL;
-	static char *save = NULL;
-	int index = 0;
-	int index2 = 0;
-	int index3 = 0;
-	int check = 0;
+	*count_buf = 0;
+	if ((*current_file = read(fd, buffer, READ_SIZE)) < 0)
+		return (FAIL);
+	buffer[*current_file] = '\0';
+	return (*current_file);
+}
 
-	if (size == 0 && (save == NULL || save[0] == '\0'))
-		return (-2);
-	stock = malloc(sizeof(char) * (size + my_str(save) + 1));
-	if (stock == NULL)
-		return (84);
-	stock[0] = '\0';
-	if (save != NULL) {
-		stock = my_realloc(stock, save);
-		free(save);
-		save = NULL;
+static int	begin_read(char *buffer, int *current_file, int fd, char **ret)
+{
+	int		res = 0;
+	static int	count_buf = 0;
+
+	if (buffer[count_buf] == '\0' || count_buf != READ_SIZE ||
+	count_buf != 0) {
+		*ret = realloc_ret(buffer, *ret, &count_buf);
+		if (buffer[count_buf] == '\n')
+			return (++count_buf, CONTINUE);
 	}
-	index2 = my_str(stock);
-	stock = my_realloc(stock, buffer);
-	index = 0;
-	index2 = 0;
-	index3 = 0;
-	save = malloc(sizeof(char) * my_str(&stock[index]));
-	if (save == NULL)
-		return (84);
-	save[0] = '\0';
-	while (stock[index] != '\0') {
-		if (stock[index] == '\n') {
-			check = 1;
-			index3 = index;
-			index += 1;
-			while (stock[index] != '\0')
-				save[index2++] = stock[index++];
-			save[index2] = '\0';
-			stock[index3] = '\0';
-		}
-		index += 1;
+	while ((res = read_file(fd, buffer, &count_buf, current_file)) > 0) {
+		if ((*ret = realloc_ret(buffer, *ret,
+					&count_buf)) == ERROR_NULL)
+			return (FAIL);
+		if (buffer[count_buf] == '\n')
+			return (++count_buf, SUCCESS);
 	}
-	*rec = my_realloc(*rec, stock);
-	if (save[0] == '\0') {
-		free(save);
-		save = NULL;
-	}
-	if (check == 1)
-		return (-1);
-	else
-		return (0);
+	if (res == -1)
+		return (FAIL);
+	return (SUCCESS);
 }
 
 char	*get_next_line(int fd)
 {
-	char buffer[READ_SIZE + 1];
-	char *rec = malloc(sizeof(char) *(READ_SIZE + 1));
-	int size = 1;
-	int bool = 0;
+	static char	buffer[READ_SIZE + 1] = { '\0' };
+	int		current_file = 0;
+	char		*ret = NULL;
+	int		status = 0;
 
-	if (rec == NULL)
-		return (NULL);
-	rec[0] = '\0';
-	buffer[size] = '\0';
-	while (size > 0) {
-		size = read(fd, buffer, READ_SIZE);
-		buffer[size] = '\0';
-		bool = check_caract(size, buffer, &rec);
-		if (bool == -2)
-			return (NULL);
-		if (bool == -1)
-			return (rec);
+	if ((status = begin_read(buffer, &current_file, fd, &ret)) == FAIL)
+		return (ERROR_NULL);
+	else if (status == CONTINUE)
+		return (ret);
+	if (current_file == 0) {
+		if (ret[0] == '\0') {
+			free(ret);
+			return (ERROR_NULL);
+		}
 	}
-	return (NULL);
+	else if (current_file == -1) {
+		if (ret == NULL)
+			return (ERROR_NULL);
+	}
+	return (ret);
 }
