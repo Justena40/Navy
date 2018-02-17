@@ -14,7 +14,7 @@ static char	*attack(player_t *player)
 {
 	char	*str = NULL;
 
-	my_putstr(1, "attack: ");
+	my_putstr(1, "\nattack: ");
 	while ((str = get_input(0)) != NULL && (letter_in_map(str[0]) == 0 ||
 						nbr_in_map(str[1]) == 0 ||
 						my_strlen(str) > 2)) {
@@ -29,6 +29,7 @@ int	wait_turn(player_t *player)
 {
 	char	*pos = NULL;
 
+	my_putstr(1, "\nwaiting for enemy's attack...\n");
 	pause();
 	pos = catch_signal();
 	if (pos == NULL)
@@ -42,9 +43,6 @@ int	attack_turn(player_t *player)
 {
 	char	*pos = NULL;
 
-	display_map(player->map);
-	my_putstr(1, "\n");
-	display_map(player->enemy_map);
 	pos = attack(player);
 	if (pos == MALLOC_ERROR)
 		return (ERROR);
@@ -54,5 +52,6 @@ int	attack_turn(player_t *player)
 		my_putstr(1, "missed\n");
 	else
 		my_putstr(1, "hit\n");
+	mark_map_enemy(pos, player->enemy_map);
 	return (SUCCESS);
 }

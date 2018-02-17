@@ -28,6 +28,7 @@ SRC	=	$(SRC_DIR)main.c		\
 		$(GAME_DIR)check_ship.c		\
 		$(GAME_DIR)encryption.c		\
 		$(GAME_DIR)check_in_map.c	\
+		$(GAME_DIR)mark_map.c		\
 		$(MY_DIR)my_strcmp.c		\
 		$(MY_DIR)my_getnbr.c		\
 		$(MY_DIR)my_putnbr.c		\
