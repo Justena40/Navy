@@ -8,6 +8,7 @@
 #ifndef GAME_H_
 #define GAME_H_
 
+#include <stdbool.h>
 #include "player.h"
 
 /************ INIT ************/
@@ -35,5 +36,6 @@ void	encrypt(int pid_enn, char *pos_shoot);
 void	display_miss_or_hit(char *pos);
 char	*catch_signal(void);
 int	check_in_map(char *pos, char **map);
+bool	check_win(char **map);
 
 #endif /*GAME_H_*/

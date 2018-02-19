@@ -24,15 +24,26 @@ static void	display_usage(void)
 	my_putstr(2, "of the ships.\n");
 }
 
+static void	display_winner(int res)
+{
+	if (res == 0)
+		my_putstr(1, "I won\n");
+	else
+		my_putstr(1, "Enemy won\n");
+}
+
 int	main(int argc, char **argv)
 {
+	int	res = 0;
+
 	if (argc == 1 || argc > 3)
 		return (ERROR);
 	else if (my_strcmp(argv[1], "-h") == 0) {
 		display_usage();
 		return (ERROR);
 	}
-	if (game(argc, argv) == ERROR)
+	if ((res = game(argc, argv)) == ERROR)
 		return (ERROR);
-	return (SUCCESS);
+	display_winner(res);
+	return (res);
 }

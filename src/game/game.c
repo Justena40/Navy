@@ -76,5 +76,5 @@ int	game(int argc, char **argv)
 		if ((res = player_loop(player)) == ERROR)
 			return (ERROR);
 	}
-	return (SUCCESS);
+	return (res);
 }
