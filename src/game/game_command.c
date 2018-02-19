@@ -21,6 +21,9 @@ static char	*attack(player_t *player)
 		my_putstr(1, "wrong position\n");
 		my_putstr(1, "attack: ");
 	}
+	if (str == NULL) {
+		return (MALLOC_ERROR);
+	}
 	encrypt(player->enemy_pid, str);
 	return (str);
 }

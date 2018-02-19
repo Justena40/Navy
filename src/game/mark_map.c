@@ -12,7 +12,7 @@
 void	mark_map_enemy(char *pos, char **en_map)
 {
 	if (rec_sig == 0)
-		en_map[pos[0] - 'A'][(pos[1] - '0') - 1] = 'o';
+		en_map[(pos[1] - '0') - 1][pos[0] - 'A'] = 'o';
 	else
-		en_map[pos[0] - 'A'][(pos[1] - '0') - 1] = 'x';
+		en_map[(pos[1] - '0') - 1][pos[0] - 'A'] = 'x';
 }

@@ -57,6 +57,7 @@ player_t *init_player(pid_t enemy_pid, char *map_path)
 
 int	game(int argc, char **argv)
 {
+	int		res = 0;
 	player_t	*player = NULL;
 
 	if (init_signal(&pid_handler) == false)
@@ -65,13 +66,15 @@ int	game(int argc, char **argv)
 		player = init_host(argv[1]);
 		if (player == MALLOC_ERROR)
 			return (ERROR);
-		host_loop(player);
+		if ((res = host_loop(player)) == ERROR)
+			return (ERROR);
 	}
 	else if (argc == 3) {
 		player = init_player(my_getnbr(argv[1]), argv[2]);
-		if (player == NULL)
+		if (player == MALLOC_ERROR)
 			return (ERROR);
-		player_loop(player);
+		if ((res = player_loop(player)) == ERROR)
+			return (ERROR);
 	}
 	return (SUCCESS);
 }

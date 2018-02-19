@@ -16,7 +16,8 @@ int	host_loop(player_t *host)
 
 	player_connection(host);
 	while (win != 1 && win != 2) {
-		attack_turn(host);
+		if (attack_turn(host) == ERROR)
+			return (ERROR);
 		wait_turn(host);
 		my_putstr(1, "\nmy positions:\n");
 		display_map(host->map);
@@ -33,7 +34,8 @@ int	player_loop(player_t *player)
 	connect_player(player);
 	while (win != 1 && win != 2) {
 		wait_turn(player);
-		attack_turn(player);
+		if (attack_turn(player) == ERROR)
+			return (ERROR);
 		my_putstr(1, "\nmy positions:\n");
 		display_map(player->map);
 		my_putstr(1, "\nenemy's positions:\n");
