@@ -51,10 +51,6 @@ int	attack_turn(player_t *player)
 		return (ERROR);
 	my_putstr(1, pos);
 	my_putstr(1, ": ");
-	if (rec_sig == 0)
-		my_putstr(1, "missed\n");
-	else
-		my_putstr(1, "hit\n");
 	mark_map_enemy(pos, player->enemy_map);
 	return (SUCCESS);
 }

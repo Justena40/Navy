@@ -19,13 +19,13 @@ int	host_loop(player_t *host)
 	while (win != 0 && win != 1) {
 		if (attack_turn(host) == ERROR)
 			return (ERROR);
+		if (check_win(host->enemy_map) == true) {
+			kill(host->enemy_pid, SIGUSR2);
+			return (1);
+		}
 		wait_turn(host);
 		if (check_win(host->map) == true)
-			return (1);
-		else if (check_win(host->enemy_map) == true) {
-			kill(host->enemy_pid, SIGUSR1);
 			return (0);
-		}
 		my_putstr(1, "\nmy positions:\n");
 		display_map(host->map);
 		my_putstr(1, "\nenemy's positions:\n");
@@ -41,14 +41,14 @@ int	player_loop(player_t *player)
 	connect_player(player);
 	while (win != 0 && win != 1) {
 		wait_turn(player);
-		if (check_win(player->enemy_map) == true)
-			return (1);
-		else if (check_win(player->enemy_map) == true) {
-			kill(player->enemy_pid, SIGUSR1);
+		if (check_win(player->map) == true)
 			return (0);
-		}
 		if (attack_turn(player) == ERROR)
 			return (ERROR);
+		if (check_win(player->enemy_map) == true) {
+			kill(player->enemy_pid, SIGUSR2);
+			return (1);
+		}
 		my_putstr(1, "\nmy positions:\n");
 		display_map(player->map);
 		my_putstr(1, "\nenemy's positions:\n");

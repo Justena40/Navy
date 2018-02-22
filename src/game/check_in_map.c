@@ -43,7 +43,7 @@ static char	*swap_arr_pos(char *pos)
 int	check_in_map(char *pos, char **map)
 {
 	if (map[pos[0] - 48][pos[1] - 48] == '.' ||
-	    map[pos[0] - 48][pos[1] - 48] == 'o') {
+	map[pos[0] - 48][pos[1] - 48] == 'o') {
 		map[pos[0] - 48][pos[1] - 48] = 'o';
 		pos = swap_arr_pos(pos);
 		my_putstr(1, pos);
@@ -51,6 +51,7 @@ int	check_in_map(char *pos, char **map)
 		return (10);
 	}
 	else if (map[pos[0] - 48][pos[1] - 48] == 'x') {
+		pos = swap_arr_pos(pos);
 		my_putstr(1, pos);
 		my_putstr(1, ": missed\n");
 		return (10);
