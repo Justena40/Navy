@@ -16,7 +16,7 @@ PLA_DIR =	$(SRC_DIR)player/
 SRC	=	$(SRC_DIR)main.c		\
 		$(SRC_DIR)get_next_line.c	\
 		$(SRC_DIR)signal_handler.c	\
-		$(SRC_DIR)italic_text.c		\
+		$(GAME_DIR)italic_text.c	\
 		$(GAME_DIR)game.c		\
 		$(GAME_DIR)open_and_do_map.c	\
 		$(GAME_DIR)put_ship_in_map.c	\

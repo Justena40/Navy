@@ -16,7 +16,7 @@ int	host_loop(player_t *host)
 	int	win = 21;
 
 	player_connection(host);
-	while (win != 0 && win != 1) {
+	while (win != 0) {
 		if (attack_turn(host) == ERROR)
 			return (ERROR);
 		if (check_win(host->enemy_map) == true) {
@@ -39,7 +39,7 @@ int	player_loop(player_t *player)
 	int	win = 21;
 
 	connect_player(player);
-	while (win != 0 && win != 1) {
+	while (win != 0) {
 		wait_turn(player);
 		if (check_win(player->map) == true)
 			return (0);

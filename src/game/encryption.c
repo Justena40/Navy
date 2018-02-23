@@ -12,7 +12,7 @@
 #include "encrypt.h"
 #include "my.h"
 
-void	init_struc(encrypt_t arr_crypt[16])
+static void	init_struc(encrypt_t arr_crypt[16])
 {
 	arr_crypt[0] = (encrypt_t) {'1', "000"};
 	arr_crypt[1] = (encrypt_t) {'2', "001"};
@@ -32,7 +32,7 @@ void	init_struc(encrypt_t arr_crypt[16])
 	arr_crypt[15] = (encrypt_t) {'H', "111"};
 }
 
-void	init_pos(char *x, char *y, char *buffer)
+static void	init_pos(char *x, char *y, char *buffer)
 {
 	y[0] = buffer[0];
 	y[1] = buffer[1];
