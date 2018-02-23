@@ -39,7 +39,7 @@ OBJ	=	$(SRC:.c=.o)
 
 NAME	=	navy
 
-CFLAGS	=	-I ./include -g -Wall -W -Wextra
+CFLAGS	=	-I ./include -Wall -W -Wextra
 
 all:		$(NAME)
 

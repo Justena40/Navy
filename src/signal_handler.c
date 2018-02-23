@@ -37,7 +37,7 @@ void	send_signal(char *sig, int pid_enn)
 			kill(pid_enn, SIGUSR1);
 		else
 			kill(pid_enn, SIGUSR2);
-		usleep(100);
+		usleep(1000);
 		send_sig++;
 	}
 }
