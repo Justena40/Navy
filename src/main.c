@@ -26,7 +26,7 @@ static void	display_usage(void)
 
 static void	display_winner(int res)
 {
-	if (res == 1)
+	if (res == 0)
 		my_putstr(1, "I won\n");
 	else
 		my_putstr(1, "Enemy won\n");
